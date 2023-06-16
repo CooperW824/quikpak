@@ -8,4 +8,12 @@ export default defineNuxtConfig({
 		},
 	},
 	css: ['~/assets/css/main.css', '@fortawesome/fontawesome-svg-core/styles.css'],
+	alias: {
+		'./runtimeConfig': './runtimeConfig.browser',
+	},
+	vite: {
+		define: {
+			'window.global': {},
+		},
+	},	
 });
