@@ -1,0 +1,8 @@
+
+type List @model {
+
+}
+
+type ListItem @model {
+  
+}
