@@ -1,15 +1,17 @@
 {
-	"providers": ["awscloudformation"],
-	"projectName": "QuikPak",
-	"version": "3.1",
-	"frontend": "javascript",
-	"javascript": {
-		"framework": "vue",
-		"config": {
-			"SourceDir": "",
-			"DistributionDir": ".output/public",
-			"BuildCommand": "npm run generate",
-			"StartCommand": "npm run dev --"
-		}
-	}
+  "providers": [
+    "awscloudformation"
+  ],
+  "projectName": "QuikPak",
+  "version": "3.1",
+  "frontend": "javascript",
+  "javascript": {
+    "framework": "vue",
+    "config": {
+      "SourceDir": "",
+      "DistributionDir": ".output/public",
+      "BuildCommand": "npm run generate",
+      "StartCommand": "npm run dev --"
+    }
+  }
 }

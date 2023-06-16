@@ -1,8 +1,15 @@
 
-type List @model {
-
+type List @model @auth(rules: [{allow: owner}]){
+  id: ID!
+  name: String!
+  description: String
+  items: [ListItem] @hasMany(indexName: "byListItem", fields: ["id"])
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }
 
-type ListItem @model {
-  
+type ListItem @model @auth(rules: [{allow: owner}]){
+  content: String!
+  checked: Boolean!
+  listID: ID! @index(name: "byListItem")
+  owner: String @auth(rules: [{ allow: owner, operations: [read, delete] }])
 }

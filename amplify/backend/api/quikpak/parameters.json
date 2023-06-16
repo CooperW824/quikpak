@@ -1,8 +1,11 @@
 {
-	"AppSyncApiName": "quikpak",
-	"DynamoDBBillingMode": "PAY_PER_REQUEST",
-	"DynamoDBEnableServerSideEncryption": false,
-	"AuthCognitoUserPoolId": {
-		"Fn::GetAtt": ["authquikpakAuth", "Outputs.UserPoolId"]
-	}
+  "AppSyncApiName": "quikpak",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authquikpakAuth",
+      "Outputs.UserPoolId"
+    ]
+  }
 }
