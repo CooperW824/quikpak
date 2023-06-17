@@ -10,14 +10,14 @@
 				<div class="w-1/2 h-full flex items-center justify-end mr-2 sm:mr-4">
 					<div class="h-full flex items-center justify-center">
 						<ClientOnly>
-							<font-awesome-icon :icon="['fas', 'sun']" class="text-2xl text-neutral" />
+							<font-awesome-icon :icon="['fas', 'sun']" class="text-2xl text-primary" />
 							<input
 								type="checkbox"
 								class="toggle toggle-secondary toggle-md mx-2"
 								@click="(event) => {darkMode = (<HTMLInputElement>event.target ).checked}"
 								:checked="darkMode"
 							/>
-							<font-awesome-icon :icon="['fas', 'moon']" class="text-2xl mr-2 sm:mr-4 text-neutral" />
+							<font-awesome-icon :icon="['fas', 'moon']" class="text-2xl mr-2 sm:mr-4 text-accent" />
 						</ClientOnly>
 					</div>
 
