@@ -8,6 +8,7 @@ type List @model @auth(rules: [{allow: owner}]){
 }
 
 type ListItem @model @auth(rules: [{allow: owner}]){
+  id: ID!
   content: String!
   checked: Boolean!
   listID: ID! @index(name: "byListItem")

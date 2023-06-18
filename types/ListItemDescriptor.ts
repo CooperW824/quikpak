@@ -1,6 +1,6 @@
 export default interface ListItemDescriptor {
     content: String
     checked: Boolean
-    listId: String
+    listID: String
     id: String
 }

@@ -1,9 +1,11 @@
 <template>
-	<div class="max-w-[425px] w-10/12 h-16 flex items-center justify-center my-2">
-		<button class="btn btn-neutral text-xl" @click="createList">Create New List</button>
-	</div>
-	<div class="max-w-[425px] w-10/12 h-full overflow-y-auto flex flex-col items-center justify-start mb-2">
-		<ListDetail v-for="list in lists" :list="list" />
+	<div class="max-w-[425px] w-10/12 h-full">
+		<div class="h-16 flex items-center justify-center my-2">
+			<button class="btn btn-neutral text-xl" @click="createList">Create New List</button>
+		</div>
+		<div class="overflow-y-auto overflow-x-hidden flex flex-col items-center justify-start mb-2">
+			<ListDetail class="w-full" v-for="list in lists" :list="list" />
+		</div>
 	</div>
 </template>
 <script setup lang="ts">

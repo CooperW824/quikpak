@@ -9,6 +9,16 @@ export const getList = /* GraphQL */ `
       name
       description
       items {
+        items {
+          id
+          content
+          checked
+          listID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         nextToken
         __typename
       }
@@ -30,6 +40,20 @@ export const listLists = /* GraphQL */ `
         id
         name
         description
+        items {
+          items {
+            id
+            content
+            checked
+            listID
+            owner
+            createdAt
+            updatedAt
+            __typename
+          }
+          nextToken
+          __typename
+        }
         owner
         createdAt
         updatedAt
@@ -43,11 +67,11 @@ export const listLists = /* GraphQL */ `
 export const getListItem = /* GraphQL */ `
   query GetListItem($id: ID!) {
     getListItem(id: $id) {
+      id
       content
       checked
       listID
       owner
-      id
       createdAt
       updatedAt
       __typename
@@ -62,11 +86,11 @@ export const listListItems = /* GraphQL */ `
   ) {
     listListItems(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
+        id
         content
         checked
         listID
         owner
-        id
         createdAt
         updatedAt
         __typename
@@ -92,11 +116,11 @@ export const listItemsByListID = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
+        id
         content
         checked
         listID
         owner
-        id
         createdAt
         updatedAt
         __typename

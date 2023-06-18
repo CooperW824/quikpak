@@ -12,6 +12,16 @@ export const onCreateList = /* GraphQL */ `
       name
       description
       items {
+        items {
+          id
+          content
+          checked
+          listID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         nextToken
         __typename
       }
@@ -32,6 +42,16 @@ export const onUpdateList = /* GraphQL */ `
       name
       description
       items {
+        items {
+          id
+          content
+          checked
+          listID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         nextToken
         __typename
       }
@@ -52,6 +72,16 @@ export const onDeleteList = /* GraphQL */ `
       name
       description
       items {
+        items {
+          id
+          content
+          checked
+          listID
+          owner
+          createdAt
+          updatedAt
+          __typename
+        }
         nextToken
         __typename
       }
@@ -68,11 +98,11 @@ export const onCreateListItem = /* GraphQL */ `
     $owner: String
   ) {
     onCreateListItem(filter: $filter, owner: $owner) {
+      id
       content
       checked
       listID
       owner
-      id
       createdAt
       updatedAt
       __typename
@@ -85,11 +115,11 @@ export const onUpdateListItem = /* GraphQL */ `
     $owner: String
   ) {
     onUpdateListItem(filter: $filter, owner: $owner) {
+      id
       content
       checked
       listID
       owner
-      id
       createdAt
       updatedAt
       __typename
@@ -102,11 +132,11 @@ export const onDeleteListItem = /* GraphQL */ `
     $owner: String
   ) {
     onDeleteListItem(filter: $filter, owner: $owner) {
+      id
       content
       checked
       listID
       owner
-      id
       createdAt
       updatedAt
       __typename

@@ -77,11 +77,11 @@ export type ModelListItemConnection = {
 
 export type ListItem = {
   __typename: "ListItem",
+  id: string,
   content: string,
   checked: boolean,
   listID: string,
   owner?: string | null,
-  id: string,
   createdAt: string,
   updatedAt: string,
 };
@@ -98,11 +98,11 @@ export type DeleteListInput = {
 };
 
 export type CreateListItemInput = {
+  id?: string | null,
   content: string,
   checked: boolean,
   listID: string,
   owner?: string | null,
-  id?: string | null,
 };
 
 export type ModelListItemConditionInput = {
@@ -139,11 +139,11 @@ export type ModelIDInput = {
 };
 
 export type UpdateListItemInput = {
+  id: string,
   content?: string | null,
   checked?: boolean | null,
   listID?: string | null,
   owner?: string | null,
-  id: string,
 };
 
 export type DeleteListItemInput = {
@@ -167,6 +167,7 @@ export type ModelListConnection = {
 };
 
 export type ModelListItemFilterInput = {
+  id?: ModelIDInput | null,
   content?: ModelStringInput | null,
   checked?: ModelBooleanInput | null,
   listID?: ModelIDInput | null,
@@ -221,6 +222,7 @@ export type ModelSubscriptionStringInput = {
 };
 
 export type ModelSubscriptionListItemFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
   content?: ModelSubscriptionStringInput | null,
   checked?: ModelSubscriptionBooleanInput | null,
   listID?: ModelSubscriptionIDInput | null,
@@ -246,6 +248,16 @@ export type CreateListMutation = {
     description?: string | null,
     items?:  {
       __typename: "ModelListItemConnection",
+      items:  Array< {
+        __typename: "ListItem",
+        id: string,
+        content: string,
+        checked: boolean,
+        listID: string,
+        owner?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
       nextToken?: string | null,
     } | null,
     owner?: string | null,
@@ -267,6 +279,16 @@ export type UpdateListMutation = {
     description?: string | null,
     items?:  {
       __typename: "ModelListItemConnection",
+      items:  Array< {
+        __typename: "ListItem",
+        id: string,
+        content: string,
+        checked: boolean,
+        listID: string,
+        owner?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
       nextToken?: string | null,
     } | null,
     owner?: string | null,
@@ -288,6 +310,16 @@ export type DeleteListMutation = {
     description?: string | null,
     items?:  {
       __typename: "ModelListItemConnection",
+      items:  Array< {
+        __typename: "ListItem",
+        id: string,
+        content: string,
+        checked: boolean,
+        listID: string,
+        owner?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
       nextToken?: string | null,
     } | null,
     owner?: string | null,
@@ -304,11 +336,11 @@ export type CreateListItemMutationVariables = {
 export type CreateListItemMutation = {
   createListItem?:  {
     __typename: "ListItem",
+    id: string,
     content: string,
     checked: boolean,
     listID: string,
     owner?: string | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -322,11 +354,11 @@ export type UpdateListItemMutationVariables = {
 export type UpdateListItemMutation = {
   updateListItem?:  {
     __typename: "ListItem",
+    id: string,
     content: string,
     checked: boolean,
     listID: string,
     owner?: string | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -340,11 +372,11 @@ export type DeleteListItemMutationVariables = {
 export type DeleteListItemMutation = {
   deleteListItem?:  {
     __typename: "ListItem",
+    id: string,
     content: string,
     checked: boolean,
     listID: string,
     owner?: string | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -362,6 +394,16 @@ export type GetListQuery = {
     description?: string | null,
     items?:  {
       __typename: "ModelListItemConnection",
+      items:  Array< {
+        __typename: "ListItem",
+        id: string,
+        content: string,
+        checked: boolean,
+        listID: string,
+        owner?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
       nextToken?: string | null,
     } | null,
     owner?: string | null,
@@ -384,6 +426,20 @@ export type ListListsQuery = {
       id: string,
       name: string,
       description?: string | null,
+      items?:  {
+        __typename: "ModelListItemConnection",
+        items:  Array< {
+          __typename: "ListItem",
+          id: string,
+          content: string,
+          checked: boolean,
+          listID: string,
+          owner?: string | null,
+          createdAt: string,
+          updatedAt: string,
+        } | null >,
+        nextToken?: string | null,
+      } | null,
       owner?: string | null,
       createdAt: string,
       updatedAt: string,
@@ -399,11 +455,11 @@ export type GetListItemQueryVariables = {
 export type GetListItemQuery = {
   getListItem?:  {
     __typename: "ListItem",
+    id: string,
     content: string,
     checked: boolean,
     listID: string,
     owner?: string | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -420,11 +476,11 @@ export type ListListItemsQuery = {
     __typename: "ModelListItemConnection",
     items:  Array< {
       __typename: "ListItem",
+      id: string,
       content: string,
       checked: boolean,
       listID: string,
       owner?: string | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -445,11 +501,11 @@ export type ListItemsByListIDQuery = {
     __typename: "ModelListItemConnection",
     items:  Array< {
       __typename: "ListItem",
+      id: string,
       content: string,
       checked: boolean,
       listID: string,
       owner?: string | null,
-      id: string,
       createdAt: string,
       updatedAt: string,
     } | null >,
@@ -470,6 +526,16 @@ export type OnCreateListSubscription = {
     description?: string | null,
     items?:  {
       __typename: "ModelListItemConnection",
+      items:  Array< {
+        __typename: "ListItem",
+        id: string,
+        content: string,
+        checked: boolean,
+        listID: string,
+        owner?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
       nextToken?: string | null,
     } | null,
     owner?: string | null,
@@ -491,6 +557,16 @@ export type OnUpdateListSubscription = {
     description?: string | null,
     items?:  {
       __typename: "ModelListItemConnection",
+      items:  Array< {
+        __typename: "ListItem",
+        id: string,
+        content: string,
+        checked: boolean,
+        listID: string,
+        owner?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
       nextToken?: string | null,
     } | null,
     owner?: string | null,
@@ -512,6 +588,16 @@ export type OnDeleteListSubscription = {
     description?: string | null,
     items?:  {
       __typename: "ModelListItemConnection",
+      items:  Array< {
+        __typename: "ListItem",
+        id: string,
+        content: string,
+        checked: boolean,
+        listID: string,
+        owner?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
       nextToken?: string | null,
     } | null,
     owner?: string | null,
@@ -528,11 +614,11 @@ export type OnCreateListItemSubscriptionVariables = {
 export type OnCreateListItemSubscription = {
   onCreateListItem?:  {
     __typename: "ListItem",
+    id: string,
     content: string,
     checked: boolean,
     listID: string,
     owner?: string | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -546,11 +632,11 @@ export type OnUpdateListItemSubscriptionVariables = {
 export type OnUpdateListItemSubscription = {
   onUpdateListItem?:  {
     __typename: "ListItem",
+    id: string,
     content: string,
     checked: boolean,
     listID: string,
     owner?: string | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -564,11 +650,11 @@ export type OnDeleteListItemSubscriptionVariables = {
 export type OnDeleteListItemSubscription = {
   onDeleteListItem?:  {
     __typename: "ListItem",
+    id: string,
     content: string,
     checked: boolean,
     listID: string,
     owner?: string | null,
-    id: string,
     createdAt: string,
     updatedAt: string,
   } | null,
