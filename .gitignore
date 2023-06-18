@@ -22,7 +22,7 @@ logs
 .env.*
 !.env.example
 
-amplify/team-provider-info.json
+team-provider-info.json
 
 #amplify-do-not-edit-begin
 amplify/\#current-cloud-backend
