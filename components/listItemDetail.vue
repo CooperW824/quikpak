@@ -9,7 +9,7 @@
 		/>
 		<input
 			:id="`${item.id}Input`"
-			maxlength="50"
+			maxlength="250"
 			type="text"
 			class="input input-secondary input-sm w-full text-neutral bg-base-200 mr-2"
 			:value="item.content"
