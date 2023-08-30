@@ -35,7 +35,6 @@ const props = defineProps<{
 
 const emit = defineEmits(['itemDeleted']);
 
-const listItems = useListItems();
 const item = ref<ListItemDescriptor>(props.item);
 
 const handleListItemDelete = async (id: string, name: string) => {
