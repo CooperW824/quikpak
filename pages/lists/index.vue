@@ -44,7 +44,6 @@ const getLists = async (nextToken?: string) => {
 			console.error(listsResult.errors);
 			return;
 		}
-		console.log(listsResult.data.listLists?.items);
 		lists.value = listsResult.data.listLists?.items as ListDescriptor[];
 	} catch (err) {
 		console.error(err);
@@ -79,11 +78,9 @@ const createList = async () => {
 			console.error(createResult.errors);
 			return;
 		}
-		console.log(createResult.data.createList?.items);
 		const newArray = lists.value.splice(0);
 		newArray.unshift(createResult.data.createList as ListDescriptor);
 		lists.value = newArray;
-		console.log(lists.value);
 	} catch (err) {
 		console.error(err);
 	}

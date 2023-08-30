@@ -34,7 +34,8 @@
                             "
 							maxlength="225"
 							id="listDescInput"
-						>{{ list?.description }}</textarea>
+							>{{ list?.description }}</textarea
+						>
 						<div class="w-full h-fit flex items-center justify-between">
 							<p class="text-neutral">{{ 225 - descriptionLength }} / 225 Characters Left</p>
 							<div class="w-fit flex items-center justify-center">
@@ -62,7 +63,16 @@
 			</div>
 			<hr class="border-neutral w-full" />
 			<button class="btn btn-secondary btn-sm my-2" @click="createNewListItem(true)">Add New Item</button>
-			<ListItemDetail v-for="item in listItems" :item="item" class="w-full" />
+			<ListItemDetail
+				v-for="item in listItems"
+				:item="item"
+				class="w-full"
+				@item-deleted="
+					(id) => {
+						deleteListItemFunc(id);
+					}
+				"
+			/>
 			<button class="btn btn-secondary btn-sm my-2" @click="createNewListItem(false)">Add New Item</button>
 		</div>
 	</ClientOnly>
@@ -70,17 +80,42 @@
 <script setup lang="ts">
 import { API } from 'aws-amplify';
 import { GraphQLQuery, GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
-import { CreateListItemMutation, GetListQuery, UpdateListMutation } from '~/src/API';
+import { CreateListItemMutation, DeleteListItemMutation, GetListQuery, UpdateListMutation } from '~/src/API';
 import ListItemDescriptor from '~/types/ListItemDescriptor';
 import { getList } from '~/src/graphql/queries';
 import ListDescriptor from '~/types/ListDescriptor';
+import { deleteListItem } from '~/src/graphql/mutations';
 
 const editListName = ref(false);
 const editListDescription = ref(false);
 const descriptionLength = ref(0);
-const listItems = useListItems();
+const listItems = ref<ListItemDescriptor[]>([]);
 const list = ref<ListDescriptor>();
 const router = useRouter();
+
+const deleteListItemFunc = async (id: string) => {
+	const variables = {
+		input: {
+			id,
+		},
+	};
+
+	try {
+		const deleteResult = await API.graphql<GraphQLQuery<DeleteListItemMutation>>({
+			query: deleteListItem,
+			variables,
+			authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+		});
+		if (!deleteResult.data) {
+			console.error(deleteResult.errors);
+			return;
+		}
+		const deletedId = deleteResult.data.deleteListItem?.id;
+		listItems.value = listItems.value.filter((item) => item.id !== deletedId);
+	} catch (err) {
+		console.error(err);
+	}
+};
 
 const handleTextAreaLoad = (event: Event) => {
 	(<HTMLTextAreaElement>event.target).value = (list.value?.description || '') as string;

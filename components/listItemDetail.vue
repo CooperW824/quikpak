@@ -1,7 +1,20 @@
 <template>
 	<div class="w-full h-8 flex items-center justify-start my-2">
-		<input :id="`${item.id}Checkbox`" type="checkbox" class="checkbox checkbox-secondary checkbox-lg text-base-100 mr-2" :checked="item.checked == true" @change="handleItemCheckedChange"/>
-		<input :id="`${item.id}Input`" maxlength="50" type="text" class="input input-secondary input-sm w-full text-neutral bg-base-200 mr-2" :value="item.content" @change="handleItemContentChange" />
+		<input
+			:id="`${item.id}Checkbox`"
+			type="checkbox"
+			class="checkbox checkbox-secondary checkbox-lg text-base-100 mr-2"
+			:checked="item.checked == true"
+			@change="handleItemCheckedChange"
+		/>
+		<input
+			:id="`${item.id}Input`"
+			maxlength="50"
+			type="text"
+			class="input input-secondary input-sm w-full text-neutral bg-base-200 mr-2"
+			:value="item.content"
+			@change="handleItemContentChange"
+		/>
 		<button class="btn btn-error btn-sm mr-2">
 			<font-awesome-icon
 				:icon="['fas', 'trash']"
@@ -20,12 +33,14 @@ const props = defineProps<{
 	item: ListItemDescriptor;
 }>();
 
+const emit = defineEmits(['itemDeleted']);
+
 const listItems = useListItems();
 const item = ref<ListItemDescriptor>(props.item);
 
 const handleListItemDelete = async (id: string, name: string) => {
 	if (confirm(`Are you sure you want to delete the item: ${name} `)) {
-		deleteListItemFunc(id);
+		emit('itemDeleted', id);
 	}
 };
 
@@ -36,30 +51,6 @@ const deleteListItem = /* GraphQL */ `
 		}
 	}
 `;
-
-const deleteListItemFunc = async (id: string) => {
-	const variables = {
-		input: {
-			id,
-		},
-	};
-
-	try {
-		const deleteResult = await API.graphql<GraphQLQuery<DeleteListItemMutation>>({
-			query: deleteListItem,
-			variables,
-			authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-		});
-		if (!deleteResult.data) {
-			console.error(deleteResult.errors);
-			return;
-		}
-		const deletedId = deleteResult.data.deleteListItem?.id;
-		listItems.value = listItems.value.filter((item) => item.id !== deletedId);
-	} catch (err) {
-		console.error(err);
-	}
-};
 
 const updateListItem = /* GraphQL */ `
 	mutation UpdateListItem($input: UpdateListItemInput!, $condition: ModelListItemConditionInput) {
