@@ -7,7 +7,7 @@
 			<button class="btn btn-error btn-sm mr-2"><font-awesome-icon :icon="['fas', 'trash']" class="text-lg text-error-content" @click="() => handleListDelete(props.list.id as string, props.list.name as string)" /></button>
 		</div>
 		<div class="h-[calc(100%-40px)] flex-grow flex-shrink overflow-hidden mx-2 whitespace-pre-wrap w-full">
-			<p class="text-neutral my-1">{{ props.list.description }}</p>
+			<p class="text-neutral my-1 w-11/12">{{ props.list.description }}</p>
 		</div>
 		<NuxtLink :href="`/lists/${props.list.id}`" class="pl-2 text-2xl text-neutral">
 			Open List
