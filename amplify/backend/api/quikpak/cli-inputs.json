@@ -1,19 +1,13 @@
 {
-	"version": 1,
-	"serviceConfiguration": {
-		"apiName": "quikpak",
-		"serviceName": "AppSync",
-		"defaultAuthType": {
-			"mode": "AMAZON_COGNITO_USER_POOLS",
-			"cognitoUserPoolId": "authquikpakAuth"
-		},
-		"additionalAuthTypes": [
-			{
-				"mode": "API_KEY",
-				"expirationTime": 7,
-				"apiKeyExpirationDate": "2023-06-23T15:10:20.347Z",
-				"keyDescription": "DO NOT DELETE EVEN IF EXPIRED"
-			}
-		]
-	}
+  "version": 1,
+  "serviceConfiguration": {
+    "apiName": "quikpak",
+    "serviceName": "AppSync",
+    "defaultAuthType": {
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authquikpakAuth"
+    },
+    "additionalAuthTypes": [],
+    "conflictResolution": {}
+  }
 }
