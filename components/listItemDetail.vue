@@ -33,13 +33,43 @@ const props = defineProps<{
 	item: ListItemDescriptor;
 }>();
 
-const emit = defineEmits(['itemDeleted']);
 
 const item = ref<ListItemDescriptor>(props.item);
+const listItems = useListItems();
 
 const handleListItemDelete = async (id: string, name: string) => {
 	if (confirm(`Are you sure you want to delete the item: ${name} `)) {
-		emit('itemDeleted', id);
+		deleteListItemFunc(id);
+	}
+};
+
+const deleteListItemFunc = async (id: string) => {
+	const variables = {
+		input: {
+			id,
+		},
+	};
+
+	try {
+		const deleteResult = await API.graphql<GraphQLQuery<DeleteListItemMutation>>({
+			query: deleteListItem,
+			variables,
+			authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
+		});
+		if (!deleteResult.data) {
+			console.error(deleteResult.errors);
+			return [...listItems.value];
+		}
+		// const deletedId = deleteResult.data.deleteListItem?.id;
+		let newArray = [...listItems.value];
+		listItems.value =  newArray.filter((item) => {
+			console.log(item.id, id);
+			console.log(item.id !== id);
+			return item.id !== id;
+		});
+	} catch (err) {
+		console.error(err);
+		return [...listItems.value];
 	}
 };
 

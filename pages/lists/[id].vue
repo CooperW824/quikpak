@@ -64,14 +64,10 @@
 			<hr class="border-neutral w-full" />
 			<button class="btn btn-secondary btn-sm my-2" @click="createNewListItem(true)">Add New Item</button>
 			<ListItemDetail
-				v-for="item in listItems"
+				v-for="(item, indx) in listItems"
 				:item="item"
+				:key="indx"
 				class="w-full"
-				@item-deleted="
-					(id) => {
-						deleteListItemFunc(id);
-					}
-				"
 			/>
 			<button class="btn btn-secondary btn-sm my-2" @click="createNewListItem(false)">Add New Item</button>
 		</div>
@@ -89,33 +85,9 @@ import { deleteListItem } from '~/src/graphql/mutations';
 const editListName = ref(false);
 const editListDescription = ref(false);
 const descriptionLength = ref(0);
-const listItems = ref<ListItemDescriptor[]>([]);
+const listItems = useListItems();
 const list = ref<ListDescriptor>();
 const router = useRouter();
-
-const deleteListItemFunc = async (id: string) => {
-	const variables = {
-		input: {
-			id,
-		},
-	};
-
-	try {
-		const deleteResult = await API.graphql<GraphQLQuery<DeleteListItemMutation>>({
-			query: deleteListItem,
-			variables,
-			authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS,
-		});
-		if (!deleteResult.data) {
-			console.error(deleteResult.errors);
-			return;
-		}
-		const deletedId = deleteResult.data.deleteListItem?.id;
-		listItems.value = listItems.value.filter((item) => item.id !== deletedId);
-	} catch (err) {
-		console.error(err);
-	}
-};
 
 const handleTextAreaLoad = (event: Event) => {
 	(<HTMLTextAreaElement>event.target).value = (list.value?.description || '') as string;
@@ -227,7 +199,7 @@ const createNewListItem = async (above: boolean) => {
 			console.error(createResult.errors);
 			return;
 		}
-		let newArray = listItems.value.splice(0);
+		let newArray = [...listItems.value];
 		if (above) {
 			newArray.unshift(createResult.data.createListItem as ListItemDescriptor);
 		} else {
